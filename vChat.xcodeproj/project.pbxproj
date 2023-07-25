@@ -11,10 +11,10 @@
 		C1C0D29C2A6F992F0083EC04 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C0D29B2A6F992F0083EC04 /* ContentView.swift */; };
 		C1C0D29E2A6F99320083EC04 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C1C0D29D2A6F99320083EC04 /* Assets.xcassets */; };
 		C1C0D2A12A6F99320083EC04 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C1C0D2A02A6F99320083EC04 /* Preview Assets.xcassets */; };
-		C1C0D2A32A6F99320083EC04 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C0D2A22A6F99320083EC04 /* Item.swift */; };
 		C1C0D2AD2A6F99320083EC04 /* vChatTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C0D2AC2A6F99320083EC04 /* vChatTests.swift */; };
 		C1C0D2B72A6F99320083EC04 /* vChatUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C0D2B62A6F99320083EC04 /* vChatUITests.swift */; };
 		C1C0D2B92A6F99320083EC04 /* vChatUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C0D2B82A6F99320083EC04 /* vChatUITestsLaunchTests.swift */; };
+		C1C0D2C92A702BB20083EC04 /* VCDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C0D2C82A702BB20083EC04 /* VCDevice.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,12 +40,12 @@
 		C1C0D29B2A6F992F0083EC04 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		C1C0D29D2A6F99320083EC04 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C1C0D2A02A6F99320083EC04 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		C1C0D2A22A6F99320083EC04 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		C1C0D2A82A6F99320083EC04 /* vChatTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = vChatTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1C0D2AC2A6F99320083EC04 /* vChatTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = vChatTests.swift; sourceTree = "<group>"; };
 		C1C0D2B22A6F99320083EC04 /* vChatUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = vChatUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1C0D2B62A6F99320083EC04 /* vChatUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = vChatUITests.swift; sourceTree = "<group>"; };
 		C1C0D2B82A6F99320083EC04 /* vChatUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = vChatUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		C1C0D2C82A702BB20083EC04 /* VCDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VCDevice.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,10 +96,10 @@
 		C1C0D2982A6F992F0083EC04 /* vChat */ = {
 			isa = PBXGroup;
 			children = (
+				C1C0D2C72A702B950083EC04 /* Models */,
 				C1C0D2992A6F992F0083EC04 /* vChatApp.swift */,
 				C1C0D29B2A6F992F0083EC04 /* ContentView.swift */,
 				C1C0D29D2A6F99320083EC04 /* Assets.xcassets */,
-				C1C0D2A22A6F99320083EC04 /* Item.swift */,
 				C1C0D29F2A6F99320083EC04 /* Preview Content */,
 			);
 			path = vChat;
@@ -128,6 +128,14 @@
 				C1C0D2B82A6F99320083EC04 /* vChatUITestsLaunchTests.swift */,
 			);
 			path = vChatUITests;
+			sourceTree = "<group>";
+		};
+		C1C0D2C72A702B950083EC04 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				C1C0D2C82A702BB20083EC04 /* VCDevice.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -261,7 +269,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C1C0D29C2A6F992F0083EC04 /* ContentView.swift in Sources */,
-				C1C0D2A32A6F99320083EC04 /* Item.swift in Sources */,
+				C1C0D2C92A702BB20083EC04 /* VCDevice.swift in Sources */,
 				C1C0D29A2A6F992F0083EC04 /* vChatApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
