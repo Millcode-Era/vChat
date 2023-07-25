@@ -14,8 +14,10 @@ struct ContentView: View {
     
     var body: some View {
         Form {
-            // Get the first device record and display device's UUID
-            Text(deviceRecords.first?.identifier.uuidString ?? "")
+            Section("Debug Info") {
+                // Get the first device record and display device's UUID
+                Text(deviceRecords.first?.identifier.uuidString ?? "")
+            }
         }
     }
 }
