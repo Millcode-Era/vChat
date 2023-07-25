@@ -1,4 +1,4 @@
-////
+//
 //  vChatUITestsLaunchTests.swift
 //  vChat
 //
