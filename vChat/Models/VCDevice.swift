@@ -38,11 +38,11 @@ class VCDevice {
 }
 
 extension VCDevice {
-    func getPrivateKey() -> RSAPrivateKey? {
-        RSAPrivateKey(base64Encoded: self.privateKey)
+    var getPrivateKey: RSAPrivateKey {
+        RSAPrivateKey(base64Encoded: self.privateKey)!
     }
-    func getPublicKey() -> RSAPublicKey? {
-        RSAPublicKey(base64Encoded: self.publicKey)
+    var getPublicKey: RSAPublicKey {
+        RSAPublicKey(base64Encoded: self.publicKey)!
     }
     
     func setPrivateKey(_ privateKey: RSAPrivateKey) {
