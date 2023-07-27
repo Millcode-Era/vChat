@@ -14,7 +14,7 @@ final class RSA {
     /// Generate a key pair
     /// - Parameter keySize: Key size, default as `4096`
     /// - Returns: private key and public key (in order)
-    func generateKeyPair(_ keySize: Int = 4096) throws -> (RSAPrivateKey, RSAPublicKey) {
+    static func generateKeyPair(_ keySize: Int = 4096) throws -> (RSAPrivateKey, RSAPublicKey) {
         let (priKey, pubKey) = try CC.RSA.generateKeyPair(keySize)
         return (RSAPrivateKey(fromDER: priKey), RSAPublicKey(fromDER: pubKey))
     }
@@ -26,7 +26,7 @@ final class RSA {
     ///   - padding: Padding Method
     ///   - digest: Digest algorithm
     /// - Returns: Encrypted value
-    func encrypt(
+    static fileprivate func encrypt(
         data: RSARawValue,
         publicKey: RSAPublicKey,
         padding: CC.RSA.AsymmetricPadding = .pkcs1,
@@ -43,7 +43,7 @@ final class RSA {
     ///   - padding: Padding Method
     ///   - digest: Digest algorithm
     /// - Returns: Decrypted value
-    func decrypt(
+    static fileprivate func decrypt(
         data: RSAEncryptedValue,
         privateKey: RSAPrivateKey,
         padding: CC.RSA.AsymmetricPadding = .pkcs1,
@@ -61,7 +61,7 @@ final class RSA {
     ///   - digest: Digest algorithm
     ///   - saltLength: Salt Length
     /// - Returns: Signed Message
-    func sign(
+    static fileprivate func sign(
         message: RSARawValue,
         privateKey: RSAPrivateKey,
         padding: CC.RSA.AsymmetricSAPadding = .pkcs15,
@@ -81,7 +81,7 @@ final class RSA {
     ///   - digest: Digest algorithm
     ///   - saltLength: Salt Length
     /// - Returns: Verify result. `true` for succes, `false` for false
-    func verify(
+    static fileprivate func verify(
         message: RSARawValue,
         signature: RSASignature,
         publicKey: RSAPublicKey,
@@ -217,6 +217,54 @@ extension RSARawValue {
     var toData: Data {
         rawValue
     }
+    
+    /// Encrypt
+    /// - Parameters:
+    ///   - publicKey: RSA Public Key
+    ///   - padding: Padding Method
+    ///   - digest: Digest algorithm
+    /// - Returns: Encrypted value
+    func encrypt(
+        publicKey: RSAPublicKey,
+        padding: CC.RSA.AsymmetricPadding = .pkcs1,
+        digest: CC.DigestAlgorithm = .sha256
+    ) throws -> RSAEncryptedValue {
+        try RSA.encrypt(data: self, publicKey: publicKey, padding: padding, digest: digest)
+    }
+    
+    /// Sign
+    /// - Parameters:
+    ///   - privateKey: Private key
+    ///   - padding: Padding Method
+    ///   - digest: Digest algorithm
+    ///   - saltLength: Salt Length
+    /// - Returns: Signed Message
+    func sign(
+        privateKey: RSAPrivateKey,
+        padding: CC.RSA.AsymmetricSAPadding = .pkcs15,
+        digest: CC.DigestAlgorithm = .sha256,
+        saltLength: Int = 16
+    ) throws -> RSASignature {
+        try RSA.sign(message: self, privateKey: privateKey, padding: padding, digest: digest, saltLength: saltLength)
+    }
+    
+    /// Verify
+    /// - Parameters:
+    ///   - signature: Signed message
+    ///   - publicKey: Public Key
+    ///   - padding: Padding Method
+    ///   - digest: Digest algorithm
+    ///   - saltLength: Salt Length
+    /// - Returns: Verify result. `true` for succes, `false` for false
+    func verify(
+        signature: RSASignature,
+        publicKey: RSAPublicKey,
+        padding: CC.RSA.AsymmetricSAPadding = .pkcs15,
+        digest: CC.DigestAlgorithm = .sha256,
+        saltLength: Int = 16
+    ) throws -> Bool {
+        try RSA.verify(message: self, signature: signature, publicKey: publicKey, padding: padding, digest: digest, saltLength: saltLength)
+    }
 }
 
 /// Encrypted RSA Raw Value
@@ -249,6 +297,20 @@ extension RSAEncryptedValue {
     /// - Returns: Base-64 encoded RSA encrypted value
     func base64EncodedString(options: Data.Base64EncodingOptions = []) -> String {
         rawValue.base64EncodedString(options: options)
+    }
+    
+    /// Decrypt
+    /// - Parameters:
+    ///   - privateKey: RSA Private Key
+    ///   - padding: Padding Method
+    ///   - digest: Digest algorithm
+    /// - Returns: Decrypted value
+    func decrypt(
+        privateKey: RSAPrivateKey,
+        padding: CC.RSA.AsymmetricPadding = .pkcs1,
+        digest: CC.DigestAlgorithm = .sha256
+    ) throws -> RSARawValue {
+        try RSA.decrypt(data: self, privateKey: privateKey, padding: padding, digest: digest)
     }
 }
 
