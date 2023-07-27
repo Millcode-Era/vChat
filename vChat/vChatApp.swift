@@ -12,6 +12,7 @@ import SwiftData
 struct vChatApp: App {
     @Environment(\.modelContext) private var modelContext
     @Query private var devices: [VCDevice]
+    private var models: [any PersistentModel.Type] = [VCDevice.self, VCUser.self]
     var body: some Scene {
         WindowGroup {
             ContentView()
@@ -25,6 +26,6 @@ struct vChatApp: App {
                     }
                 }
         }
-        .modelContainer(for: [VCDevice.self])
+        .modelContainer(for: models)
     }
 }
