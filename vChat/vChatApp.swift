@@ -7,29 +7,34 @@
 
 import SwiftUI
 import SwiftData
-import SwCrypt
+import Observation
 
 @main
 struct vChatApp: App {
-    @Environment(\.modelContext) private var modelContext
-    @Query private var devices: [VCDevice]
-    private var models: [any PersistentModel.Type] = [VCDevice.self, VCUser.self]
+    @State private var errorView = ErrorViewController()
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .onAppear {
-                    if devices.count == 0 {
-                        // generate key pair
-                        do {
-                            let (privateKey, publicKey) = try CC.RSA.generateKeyPair(4096)
-                            let newDevice = VCDevice(publicKey: publicKey, privateKey: privateKey)
-                            modelContext.insert(newDevice)
-                        } catch {
-                            print(error)
-                        }
+                .environment(errorView)
+                .overlay {
+                    if errorView.isErrorViewPresent {
+                        ErrorView(errorArea: errorView.errorArea, error: errorView.error)
                     }
                 }
         }
-        .modelContainer(for: models)
+        .modelContainer(for: [VCDevice.self, VCUser.self])
+    }
+}
+
+@Observable
+class ErrorViewController {
+    var error: Error?
+    var errorArea: String?
+    var isErrorViewPresent = false
+    
+    func showError(_ errorArea: String, error: Error) {
+        self.error = error
+        self.errorArea = errorArea
+        self.isErrorViewPresent = true
     }
 }

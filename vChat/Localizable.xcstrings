@@ -3,6 +3,24 @@
   "strings" : {
     "Debug Info" : {
 
+    },
+    "Error Area: %@" : {
+
+    },
+    "Error Description: %@" : {
+
+    },
+    "Error Info: %@" : {
+
+    },
+    "Exit" : {
+
+    },
+    "Relax, it's not your fault." : {
+
+    },
+    "Some error occurd!" : {
+
     }
   },
   "version" : "1.0"

@@ -7,22 +7,32 @@
 
 import SwiftUI
 import SwiftData
+import SwCrypt
 
 struct ContentView: View {
+    @Environment(ErrorViewController.self) private var errorView
     @Environment(\.modelContext) private var modelContext
-    @Query private var deviceRecords: [VCDevice]
-    
+    @Query private var devices: [VCDevice]
     var body: some View {
-        Form {
-            Section("Debug Info") {
-                // Get the first device record and display device's UUID
-                Text(deviceRecords.first?.identifier.uuidString ?? "")
+        EntryView()
+            .onAppear {
+                if devices.count == 0 {
+                    // generate key pair
+                    do {
+                        let (privateKey, publicKey) = try CC.RSA.generateKeyPair(4096)
+                        let newDevice = VCDevice(publicKey: publicKey, privateKey: privateKey)
+                        modelContext.insert(newDevice)
+                    } catch {
+//                            print(error)
+                        errorView.showError("Application.Initializer", error: error)
+                    }
+                }
             }
-        }
     }
 }
 
 #Preview {
     ContentView()
-        .modelContainer(for: VCDevice.self, inMemory: true)
+        .modelContainer(for: [VCDevice.self, VCUser.self])
+        .environment(ErrorViewController())
 }
