@@ -11,6 +11,7 @@
 		C1795D7D2A72A207009CC38F /* SwCrypt in Frameworks */ = {isa = PBXBuildFile; productRef = C1795D7C2A72A207009CC38F /* SwCrypt */; };
 		C1795D802A72A716009CC38F /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1795D7F2A72A716009CC38F /* ErrorView.swift */; };
 		C1795D822A72B2F3009CC38F /* EntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1795D812A72B2F3009CC38F /* EntryView.swift */; };
+		C1795D852A72C974009CC38F /* WrappedRSA.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1795D842A72C974009CC38F /* WrappedRSA.swift */; };
 		C1C0D29A2A6F992F0083EC04 /* vChatApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C0D2992A6F992F0083EC04 /* vChatApp.swift */; };
 		C1C0D29C2A6F992F0083EC04 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C0D29B2A6F992F0083EC04 /* ContentView.swift */; };
 		C1C0D29E2A6F99320083EC04 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C1C0D29D2A6F99320083EC04 /* Assets.xcassets */; };
@@ -43,6 +44,7 @@
 		C1795D792A72914F009CC38F /* VCUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VCUser.swift; sourceTree = "<group>"; };
 		C1795D7F2A72A716009CC38F /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 		C1795D812A72B2F3009CC38F /* EntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryView.swift; sourceTree = "<group>"; };
+		C1795D842A72C974009CC38F /* WrappedRSA.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WrappedRSA.swift; sourceTree = "<group>"; };
 		C1C0D2962A6F992F0083EC04 /* vChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = vChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1C0D2992A6F992F0083EC04 /* vChatApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = vChatApp.swift; sourceTree = "<group>"; };
 		C1C0D29B2A6F992F0083EC04 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -91,6 +93,14 @@
 			path = ErrorView;
 			sourceTree = "<group>";
 		};
+		C1795D832A72C94F009CC38F /* Encryption */ = {
+			isa = PBXGroup;
+			children = (
+				C1795D842A72C974009CC38F /* WrappedRSA.swift */,
+			);
+			path = Encryption;
+			sourceTree = "<group>";
+		};
 		C1C0D28D2A6F992F0083EC04 = {
 			isa = PBXGroup;
 			children = (
@@ -114,6 +124,7 @@
 		C1C0D2982A6F992F0083EC04 /* vChat */ = {
 			isa = PBXGroup;
 			children = (
+				C1795D832A72C94F009CC38F /* Encryption */,
 				C1C0D2CA2A7033FC0083EC04 /* Localizable.xcstrings */,
 				C1C0D2992A6F992F0083EC04 /* vChatApp.swift */,
 				C1C0D29B2A6F992F0083EC04 /* ContentView.swift */,
@@ -301,6 +312,7 @@
 				C1C0D29C2A6F992F0083EC04 /* ContentView.swift in Sources */,
 				C1C0D2C92A702BB20083EC04 /* VCDevice.swift in Sources */,
 				C1C0D29A2A6F992F0083EC04 /* vChatApp.swift in Sources */,
+				C1795D852A72C974009CC38F /* WrappedRSA.swift in Sources */,
 				C1795D7A2A72914F009CC38F /* VCUser.swift in Sources */,
 				C1795D822A72B2F3009CC38F /* EntryView.swift in Sources */,
 			);
