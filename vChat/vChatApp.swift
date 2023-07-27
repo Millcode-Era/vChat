@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SwiftData
+import SwCrypt
 
 @main
 struct vChatApp: App {
@@ -17,12 +18,15 @@ struct vChatApp: App {
         WindowGroup {
             ContentView()
                 .onAppear {
-                    // application launched at first time
-                    // The keys and not linked yet
-                    // TODO: Link generated keypairs to the VCDevice
                     if devices.count == 0 {
-                        let newDevice = VCDevice(publicKey: Data(), privateKey: Data())
-                        modelContext.insert(newDevice)
+                        // generate key pair
+                        do {
+                            let (privateKey, publicKey) = try CC.RSA.generateKeyPair(4096)
+                            let newDevice = VCDevice(publicKey: publicKey, privateKey: privateKey)
+                            modelContext.insert(newDevice)
+                        } catch {
+                            print(error)
+                        }
                     }
                 }
         }
