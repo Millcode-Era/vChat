@@ -19,8 +19,14 @@ struct EntryView: View {
                 Text(deviceRecords.first?.identifier.uuidString ?? "")
             }
             Section("Key pair") {
-                Text(deviceRecords.first?.publicKey ?? "")
-                Text(deviceRecords.first?.privateKey ?? "")
+                ScrollView(.horizontal) {
+                    Text(deviceRecords.first?.getPublicKey.toPCKS1() ?? "nil")
+                        .fontDesign(.monospaced)
+                }
+                ScrollView(.horizontal) {
+                    Text(deviceRecords.first?.getPrivateKey.toPCKS1() ?? "nil")
+                        .fontDesign(.monospaced)
+                }
             }
         }
     }
