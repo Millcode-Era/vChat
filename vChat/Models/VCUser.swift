@@ -25,9 +25,11 @@ class VCUser {
     ///   - uid: User's identifier
     ///   - username: User's name that defined by it own
     ///   - password: SHA256 digested password
-    init(uid: String, username: String, password: String) {
+    ///   - friendList: Friends that this user have
+    init(uid: String, username: String, password: String, friendList: [String]) {
         self.uid = uid
         self.username = username
         self.password = password
+        self.friendList = friendList
     }
 }
