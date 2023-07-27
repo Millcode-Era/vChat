@@ -52,6 +52,45 @@ final class RSA {
         let decrypt = try CC.RSA.decrypt(data.rawValue, derKey: privateKey.rawValue, tag: Data(), padding: padding, digest: digest)
         return RSARawValue(decrypt.0)
     }
+    
+    /// Sign a message
+    /// - Parameters:
+    ///   - message: A `RSARawValue`, the message that you need to sign
+    ///   - privateKey: Private key
+    ///   - padding: Padding Method
+    ///   - digest: Digest algorithm
+    ///   - saltLength: Salt Length
+    /// - Returns: Signed Message
+    func sign(
+        message: RSARawValue,
+        privateKey: RSAPrivateKey,
+        padding: CC.RSA.AsymmetricSAPadding = .pkcs15,
+        digest: CC.DigestAlgorithm = .sha256,
+        saltLength: Int = 16
+    ) throws -> RSASignature {
+        let signed = try CC.RSA.sign(message.rawValue, derKey: privateKey.rawValue, padding: padding, digest: digest, saltLen: saltLength)
+        return RSASignature(signed)
+    }
+    
+    /// Verify a original message
+    /// - Parameters:
+    ///   - message: Original message that
+    ///   - signature: Signed message
+    ///   - publicKey: Public Key
+    ///   - padding: Padding Method
+    ///   - digest: Digest algorithm
+    ///   - saltLength: Salt Length
+    /// - Returns: Verify result. `true` for succes, `false` for false
+    func verify(
+        message: RSARawValue,
+        signature: RSASignature,
+        publicKey: RSAPublicKey,
+        padding: CC.RSA.AsymmetricSAPadding = .pkcs15,
+        digest: CC.DigestAlgorithm = .sha256,
+        saltLength: Int = 16
+    ) throws -> Bool {
+        return try CC.RSA.verify(message.rawValue, derKey: publicKey.rawValue, padding: padding, digest: digest, saltLen: saltLength, signedData: signature.rawValue)
+    }
 }
 
 /// RSA Private Key
@@ -81,7 +120,7 @@ struct RSAPrivateKey {
 }
 extension RSAPrivateKey {
     /// Get raw `Data` of this key
-    var rawValue: Data {
+    fileprivate var rawValue: Data {
         data
     }
     
@@ -131,7 +170,7 @@ struct RSAPublicKey {
 }
 extension RSAPublicKey {
     /// Get raw `Data` of this key
-    var rawValue: Data {
+    fileprivate var rawValue: Data {
         data
     }
     
@@ -208,6 +247,38 @@ extension RSAEncryptedValue {
     /// Return a Base-64 Encoded RSA encrypted value
     /// - Parameter options: The options to use for the encoding. Default value is [].
     /// - Returns: Base-64 encoded RSA encrypted value
+    func base64EncodedString(options: Data.Base64EncodingOptions = []) -> String {
+        rawValue.base64EncodedString(options: options)
+    }
+}
+
+struct RSASignature {
+    private var data: Data
+    
+    init(_ data: Data) {
+        self.data = data
+    }
+    
+    /// Generate RSA signature value from Base-64 encoded string
+    /// - Parameters:
+    ///   - base64Encoded: Base-64 encoded string
+    ///   - options: The options to use for the decoding. Default value is [].
+    init?(base64Encoded: String, options: Data.Base64DecodingOptions = []) {
+        if let data = Data(base64Encoded: base64Encoded, options: options) {
+            self.data = data
+        } else {
+            return nil
+        }
+    }
+}
+extension RSASignature {
+    var rawValue: Data {
+        data
+    }
+    
+    /// Return a Base-64 Encoded RSA signature value
+    /// - Parameter options: The options to use for the encoding. Default value is [].
+    /// - Returns: Base-64 encoded RSA signature value
     func base64EncodedString(options: Data.Base64EncodingOptions = []) -> String {
         rawValue.base64EncodedString(options: options)
     }
