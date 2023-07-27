@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		C1795D7A2A72914F009CC38F /* VCUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1795D792A72914F009CC38F /* VCUser.swift */; };
+		C1795D7D2A72A207009CC38F /* SwCrypt in Frameworks */ = {isa = PBXBuildFile; productRef = C1795D7C2A72A207009CC38F /* SwCrypt */; };
 		C1C0D29A2A6F992F0083EC04 /* vChatApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C0D2992A6F992F0083EC04 /* vChatApp.swift */; };
 		C1C0D29C2A6F992F0083EC04 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C0D29B2A6F992F0083EC04 /* ContentView.swift */; };
 		C1C0D29E2A6F99320083EC04 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C1C0D29D2A6F99320083EC04 /* Assets.xcassets */; };
@@ -57,6 +58,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C1795D7D2A72A207009CC38F /* SwCrypt in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -160,6 +162,9 @@
 			dependencies = (
 			);
 			name = vChat;
+			packageProductDependencies = (
+				C1795D7C2A72A207009CC38F /* SwCrypt */,
+			);
 			productName = vChat;
 			productReference = C1C0D2962A6F992F0083EC04 /* vChat.app */;
 			productType = "com.apple.product-type.application";
@@ -232,6 +237,9 @@
 				Base,
 			);
 			mainGroup = C1C0D28D2A6F992F0083EC04;
+			packageReferences = (
+				C1795D7B2A72A207009CC38F /* XCRemoteSwiftPackageReference "SwCrypt" */,
+			);
 			productRefGroup = C1C0D2972A6F992F0083EC04 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -608,6 +616,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		C1795D7B2A72A207009CC38F /* XCRemoteSwiftPackageReference "SwCrypt" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/soyersoyer/SwCrypt";
+			requirement = {
+				kind = upToNextMinorVersion;
+				minimumVersion = 5.1.4;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		C1795D7C2A72A207009CC38F /* SwCrypt */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C1795D7B2A72A207009CC38F /* XCRemoteSwiftPackageReference "SwCrypt" */;
+			productName = SwCrypt;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = C1C0D28E2A6F992F0083EC04 /* Project object */;
 }
