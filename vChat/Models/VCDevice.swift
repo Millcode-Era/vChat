@@ -24,7 +24,7 @@ class VCDevice {
     ///   - publicKey: RSA public key.
     ///   - privateKey: RSA private key.
     init(publicKey: Data, privateKey: Data) {
-        self.identifier = identifier
+        self.identifier = UUID()
         self.publicKey = publicKey
         self.privateKey = privateKey
     }
