@@ -18,6 +18,10 @@ struct EntryView: View {
                 // Get the first device record and display device's UUID
                 Text(deviceRecords.first?.identifier.uuidString ?? "")
             }
+            Section("Key pair") {
+                Text(deviceRecords.first?.publicKey ?? "")
+                Text(deviceRecords.first?.privateKey ?? "")
+            }
         }
     }
 }

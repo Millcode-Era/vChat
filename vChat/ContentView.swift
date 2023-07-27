@@ -20,7 +20,7 @@ struct ContentView: View {
                     // generate key pair
                     do {
                         let (privateKey, publicKey) = try CC.RSA.generateKeyPair(4096)
-                        let newDevice = VCDevice(publicKey: publicKey, privateKey: privateKey)
+                        let newDevice = VCDevice(publicKey: publicKey.base64EncodedString(), privateKey: privateKey.base64EncodedString())
                         modelContext.insert(newDevice)
                     } catch {
 //                            print(error)

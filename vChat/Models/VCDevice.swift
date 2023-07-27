@@ -15,15 +15,16 @@ class VCDevice {
     var identifier: UUID
     
     // Those are key that stored locally
-    var publicKey: Data
-    var privateKey: Data
+    // stored at Base64 because SwiftData cannot stored correctly
+    var publicKey: String
+    var privateKey: String
     
     /// Create a new `VCDevice` record to represent the local device.
     /// Only read the first VCDevice record in `@Query` request.
     /// - Parameters:
     ///   - publicKey: RSA public key.
     ///   - privateKey: RSA private key.
-    init(publicKey: Data, privateKey: Data) {
+    init(publicKey: String, privateKey: String) {
         self.identifier = UUID()
         self.publicKey = publicKey
         self.privateKey = privateKey
