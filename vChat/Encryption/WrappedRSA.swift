@@ -152,6 +152,11 @@ extension RSAPrivateKey {
     func encryptedKey(_ password: String, aesMode: SwKeyConvert.PrivateKey.EncMode = .aes256CBC) throws -> String {
         try SwCrypt.SwKeyConvert.PrivateKey.encryptPEM(self.toPCKS1(), passphrase: password, mode: aesMode)
     }
+    
+    func getPublicKey() throws -> RSAPublicKey {
+        let pubKey = try CC.RSA.getPublicKeyFromPrivateKey(self.rawValue)
+        return RSAPublicKey(fromDER: pubKey)
+    }
 }
 
 /// RSA Public Key
