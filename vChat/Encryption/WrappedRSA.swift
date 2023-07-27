@@ -16,22 +16,199 @@ final class RSA {
     /// - Returns: private key and public key (in order)
     func generateKeyPair(_ keySize: Int = 4096) throws -> (RSAPrivateKey, RSAPublicKey) {
         let (priKey, pubKey) = try CC.RSA.generateKeyPair(keySize)
-        return (RSAPrivateKey(data: priKey), RSAPublicKey(data: pubKey))
+        return (RSAPrivateKey(fromDER: priKey), RSAPublicKey(fromDER: pubKey))
+    }
+    
+    /// Encrypt a `RSARawValue`
+    /// - Parameters:
+    ///   - data: `RSARawValue` that should encrypt
+    ///   - publicKey: RSA Public Key
+    ///   - padding: Padding Method
+    ///   - digest: Digest algorithm
+    /// - Returns: Encrypted value
+    func encrypt(
+        data: RSARawValue,
+        publicKey: RSAPublicKey,
+        padding: CC.RSA.AsymmetricPadding = .pkcs1,
+        digest: CC.DigestAlgorithm = .sha256
+    ) throws -> RSAEncryptedValue {
+        let encrypted = try CC.RSA.encrypt(data.rawValue, derKey: publicKey.rawValue, tag: Data(), padding: padding, digest: digest)
+        return RSAEncryptedValue(encrypted)
+    }
+    
+    /// Decrypt a `RSAEncryptedValue`
+    /// - Parameters:
+    ///   - data: `RSAEncryptedValue` that should decrypt
+    ///   - privateKey: RSA Private Key
+    ///   - padding: Padding Method
+    ///   - digest: Digest algorithm
+    /// - Returns: Decrypted value
+    func decrypt(
+        data: RSAEncryptedValue,
+        privateKey: RSAPrivateKey,
+        padding: CC.RSA.AsymmetricPadding = .pkcs1,
+        digest: CC.DigestAlgorithm = .sha256
+    ) throws -> RSARawValue {
+        let decrypt = try CC.RSA.decrypt(data.rawValue, derKey: privateKey.rawValue, tag: Data(), padding: padding, digest: digest)
+        return RSARawValue(decrypt.0)
     }
 }
 
+/// RSA Private Key
 struct RSAPrivateKey {
     private var data: Data
     
-    init(data: Data) {
+    /// Generate a RSA Private Key from DER `Data`
+    /// - Parameter data: DER Data
+    init(fromDER data: Data) {
         self.data = data
+    }
+    
+    /// Generate a RSA Private Key from PCKS1 string
+    /// - Parameter pcks1Key: PCKS1 String
+    init(fromPKCS1 pcks1Key: String) throws {
+        self.data = try SwCrypt.SwKeyConvert.PrivateKey.pemToPKCS1DER(pcks1Key)
+    }
+    
+    /// Generate a RSA Private Key from encrypted PEM string
+    /// - Parameters:
+    ///   - encryptedKey: Encrypted PEM string
+    ///   - password: Key password
+    init(_ encryptedKey: String, password: String) throws {
+        let decryptedPEMKey = try SwCrypt.SwKeyConvert.PrivateKey.decryptPEM(encryptedKey, passphrase: password)
+        self = try Self.init(fromPKCS1: decryptedPEMKey)
+    }
+}
+extension RSAPrivateKey {
+    /// Get raw `Data` of this key
+    var rawValue: Data {
+        data
+    }
+    
+    /// Export key to DER format
+    /// - Returns: DER Data
+    func toDER() -> Data {
+        rawValue
+    }
+    
+    /// Export key to PEM PKCS1 format
+    /// - Returns: PKCS1 String
+    func toPCKS1() -> String {
+        SwCrypt.SwKeyConvert.PrivateKey.derToPKCS1PEM(rawValue)
+    }
+    
+    /// Export key to encrypted PEM format
+    /// - Parameters:
+    ///   - password: Key password
+    ///   - aesMode: AES encryption mode
+    /// - Returns: Encrypted PEM key
+    func encryptedKey(_ password: String, aesMode: SwKeyConvert.PrivateKey.EncMode = .aes256CBC) throws -> String {
+        try SwCrypt.SwKeyConvert.PrivateKey.encryptPEM(self.toPCKS1(), passphrase: password, mode: aesMode)
     }
 }
 
+/// RSA Public Key
 struct RSAPublicKey {
     private var data: Data
     
-    init(data: Data) {
+    /// Generate a RSA Public Key from DER `Data`
+    /// - Parameter data: DER Data
+    init(fromDER data: Data) {
         self.data = data
+    }
+    
+    /// Generate a RSA Public Key from PCKS1 string
+    /// - Parameter pcks1Key: PCKS1 String
+    init(fromPKCS1 pcks1Key: String) throws {
+        self.data = try SwCrypt.SwKeyConvert.PublicKey.pemToPKCS1DER(pcks1Key)
+    }
+    
+    /// Generate a RSA Public Key from PCKS8 string
+    /// - Parameter pcks8Key: PCKS8 String
+    init(fromPKCS8 pcks8Key: String) throws {
+        self.data = try SwCrypt.SwKeyConvert.PublicKey.pemToPKCS8DER(pcks8Key)
+    }
+}
+extension RSAPublicKey {
+    /// Get raw `Data` of this key
+    var rawValue: Data {
+        data
+    }
+    
+    /// Export key to DER format
+    /// - Returns: DER Data
+    func toDER() -> Data {
+        rawValue
+    }
+    
+    /// Export key to PEM PKCS1 format
+    /// - Returns: PKCS1 String
+    func toPCKS1() -> String {
+        SwCrypt.SwKeyConvert.PublicKey.derToPKCS1PEM(rawValue)
+    }
+    
+    /// Export key to PEM PKCS8 format
+    /// - Returns: PKCS8 String
+    func toPCKS8() -> String {
+        SwCrypt.SwKeyConvert.PublicKey.derToPKCS8PEM(rawValue)
+    }
+}
+
+/// RSA Raw Value
+struct RSARawValue {
+    private var data: Data
+    
+    init(_ data: Data) {
+        self.data = data
+    }
+    
+    init(_ string: String) {
+        self.data = string.data(using: .utf8)!
+    }
+}
+extension RSARawValue {
+    var rawValue: Data {
+        data
+    }
+    
+    var toString: String? {
+        String(data: rawValue, encoding: .utf8)
+    }
+    
+    var toData: Data {
+        rawValue
+    }
+}
+
+/// Encrypted RSA Raw Value
+struct RSAEncryptedValue {
+    private var data: Data
+    
+    init(_ data: Data) {
+        self.data = data
+    }
+    
+    /// Generate RSA excrypted value from Base-64 encoded string
+    /// - Parameters:
+    ///   - base64Encoded: Base-64 encoded string
+    ///   - options: The options to use for the decoding. Default value is [].
+    init?(base64Encoded: String, options: Data.Base64DecodingOptions = []) {
+        if let data = Data(base64Encoded: base64Encoded, options: options) {
+            self.data = data
+        } else {
+            return nil
+        }
+    }
+}
+extension RSAEncryptedValue {
+    var rawValue: Data {
+        data
+    }
+    
+    /// Return a Base-64 Encoded RSA encrypted value
+    /// - Parameter options: The options to use for the encoding. Default value is [].
+    /// - Returns: Base-64 encoded RSA encrypted value
+    func base64EncodedString(options: Data.Base64EncodingOptions = []) -> String {
+        rawValue.base64EncodedString(options: options)
     }
 }
