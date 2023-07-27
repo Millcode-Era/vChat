@@ -29,4 +29,26 @@ class VCDevice {
         self.publicKey = publicKey
         self.privateKey = privateKey
     }
+    
+    init(publicKey: RSAPublicKey, privateKey: RSAPrivateKey) {
+        self.identifier = UUID()
+        self.publicKey = publicKey.toDER().base64EncodedString()
+        self.privateKey = privateKey.toDER().base64EncodedString()
+    }
+}
+
+extension VCDevice {
+    func getPrivateKey() -> RSAPrivateKey? {
+        RSAPrivateKey(base64Encoded: self.privateKey)
+    }
+    func getPublicKey() -> RSAPublicKey? {
+        RSAPublicKey(base64Encoded: self.publicKey)
+    }
+    
+    func setPrivateKey(_ privateKey: RSAPrivateKey) {
+        self.privateKey = privateKey.toDER().base64EncodedString()
+    }
+    func setPublicKey(_ publicKey: RSAPublicKey) {
+        self.publicKey = publicKey.toDER().base64EncodedString()
+    }
 }

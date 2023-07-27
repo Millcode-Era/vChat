@@ -19,8 +19,8 @@ struct ContentView: View {
                 if devices.count == 0 {
                     // generate key pair
                     do {
-                        let (privateKey, publicKey) = try CC.RSA.generateKeyPair(4096)
-                        let newDevice = VCDevice(publicKey: publicKey.base64EncodedString(), privateKey: privateKey.base64EncodedString())
+                        let (privateKey, publicKey) = try RSA.generateKeyPair()
+                        let newDevice = VCDevice(publicKey: publicKey, privateKey: privateKey)
                         modelContext.insert(newDevice)
                     } catch {
 //                            print(error)

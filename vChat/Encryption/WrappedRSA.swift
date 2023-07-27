@@ -117,6 +117,14 @@ struct RSAPrivateKey {
         let decryptedPEMKey = try SwCrypt.SwKeyConvert.PrivateKey.decryptPEM(encryptedKey, passphrase: password)
         self = try Self.init(fromPKCS1: decryptedPEMKey)
     }
+    
+    init?(base64Encoded: String) {
+        if let data = Data(base64Encoded: base64Encoded) {
+            self.data = data
+        } else {
+            return nil
+        }
+    }
 }
 extension RSAPrivateKey {
     /// Get raw `Data` of this key
@@ -166,6 +174,14 @@ struct RSAPublicKey {
     /// - Parameter pcks8Key: PCKS8 String
     init(fromPKCS8 pcks8Key: String) throws {
         self.data = try SwCrypt.SwKeyConvert.PublicKey.pemToPKCS8DER(pcks8Key)
+    }
+    
+    init?(base64Encoded: String) {
+        if let data = Data(base64Encoded: base64Encoded) {
+            self.data = data
+        } else {
+            return nil
+        }
     }
 }
 extension RSAPublicKey {
