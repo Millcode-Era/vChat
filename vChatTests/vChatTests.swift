@@ -19,16 +19,13 @@ final class vChatTests: XCTestCase {
     }
 
     func testAES() throws {
-        var text = "Hello, world!"
-        for _ in 1...1000000 {
-            text += "Hello, world!"
-        }
+        let text = "Hello, world!"
         let password = "this is a password"
         let key = AESKey(password)
         let iv = AESIV(password)
         let raw = AESRawValue(text)
         let encrypted = try raw.encrypt(key: key!, iv: iv!)
-        XCTAssert(encrypted != nil)
+        XCTAssert(encrypted.base64EncodedString() == "Q7SBvUvwUIZ13ONoKVRmVA==")
         let decrypted = try encrypted.decrypt(key: key!, iv: iv!)
         XCTAssert(decrypted.rawValue == raw.rawValue)
     }
