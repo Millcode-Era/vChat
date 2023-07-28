@@ -72,9 +72,12 @@ final class AES {
     }
 }
 
+/// AES Key
 struct AESKey {
     private var data: Data
     
+    /// Generate AES key from raw data
+    /// - Parameter data: AES key data
     init?(_ data: Data) {
         if [16, 24, 32].contains(data.count) {
             self.data = data
@@ -83,6 +86,11 @@ struct AESKey {
         }
     }
     
+    /// Generate AES key from a password string
+    /// Password length will effect what AES method that will use
+    /// - Parameters:
+    ///   - password: Plain password
+    ///   - length: Password length
     init?(_ password: String, length: Int = 32) {
         if ![16, 24, 32].contains(length) {
             return nil
@@ -90,6 +98,11 @@ struct AESKey {
         self.data = AES.getAESPassword(password: password, length: length)
     }
     
+    /// Generate AES key from hexadecimal string
+    /// String length will effect what AES method that will use
+    /// - Parameters:
+    ///   - hexString: Hexadecimal string
+    ///   - length: Passworf length
     init(fromHexString hexString: String, length: Int = 32) throws {
         if hexString.count != length * 2 {
             throw AESError.unmatchedLength(length)
@@ -107,6 +120,8 @@ struct AESKey {
         self.data = Data(result)
     }
     
+    /// Generate AES key from base-64 encoded string
+    /// - Parameter string: Base-64 encoded string
     init?(base64Encoded string: String) {
         if let data = Data(base64Encoded: string) {
             self.data = data
@@ -119,6 +134,8 @@ extension AESKey {
         data
     }
     
+    /// Get hexadecimal key
+    /// - Returns: Hexadecimal key
     func toHexString() -> String {
         var result = ""
         self.rawValue.forEach { element in
@@ -127,14 +144,19 @@ extension AESKey {
         return result
     }
     
+    /// Get base-64 encoded key
+    /// - Returns: Base-64 encoded key
     func base64EncodedString() -> String {
         self.rawValue.base64EncodedString()
     }
 }
 
+/// AES Initialization Vector
 struct AESIV {
     private var data: Data
     
+    /// Generate IV from raw data
+    /// - Parameter data: IV data
     init?(_ data: Data) {
         if data.count == 16 {
             self.data = data
@@ -143,10 +165,16 @@ struct AESIV {
         }
     }
     
+    /// Genreate IV from password
+    /// - Parameter password: Plain password
     init?(_ password: String) {
         self.data = AES.getAESIV(password: password)
     }
     
+    /// Generate IV from hexadecimal string
+    /// - Parameters:
+    ///   - hexString: Hexadecimal string
+    ///   - length: IV length, for AES is 16
     init(fromHexString hexString: String, length: Int = 16) throws {
         if hexString.count != length * 2 {
             throw AESError.unmatchedLength(length)
@@ -164,6 +192,8 @@ struct AESIV {
         self.data = Data(result)
     }
     
+    /// Generate IV from base-64 encoded string
+    /// - Parameter string: Base-64 encoded string
     init?(base64Encoded string: String) {
         if let data = Data(base64Encoded: string) {
             self.data = data
@@ -176,6 +206,8 @@ extension AESIV {
         data
     }
     
+    /// Get hexadecimal string
+    /// - Returns: Hexadecimal string
     func toHexString() -> String {
         var result = ""
         self.rawValue.forEach { element in
@@ -184,18 +216,25 @@ extension AESIV {
         return result
     }
     
+    /// Get base-64 encoded string
+    /// - Returns: Base-64 encoded string
     func base64EncodedString() -> String {
         self.rawValue.base64EncodedString()
     }
 }
 
+/// AES Raw Value
 struct AESRawValue {
     private var data: Data
     
+    /// Generate raw value from data
+    /// - Parameter data: Raw data
     init(_ data: Data) {
         self.data = data
     }
     
+    /// Generate raw value from string
+    /// - Parameter string: String
     init(_ string: String) {
         self.data = string.data(using: .utf8)!
     }
@@ -205,14 +244,23 @@ extension AESRawValue {
         data
     }
     
+    /// Get string from raw value
     var toString: String? {
         String(data: rawValue, encoding: .utf8)
     }
     
+    /// Get data from raw value
     var toData: Data {
         rawValue
     }
     
+    /// Encrypt
+    /// - Parameters:
+    ///   - key: AES key
+    ///   - iv: AES initialization vector
+    ///   - blockMode: Block mode, `.cbc` for default
+    ///   - padding: Padding, `.pkcs7Padding` for default
+    /// - Returns: Encrypted value
     func encrypt(
         key: AESKey,
         iv: AESIV,
@@ -223,14 +271,17 @@ extension AESRawValue {
     }
 }
 
+/// Encrypted AES value
 struct AESEncryptedValue {
     private var data: Data
     
+    /// Initialize from raw data
+    /// - Parameter data: Raw data
     init(_ data: Data) {
         self.data = data
     }
     
-    /// Generate AES excrypted value from Base-64 encoded string
+    /// Initialize AES excrypted value from Base-64 encoded string
     /// - Parameters:
     ///   - base64Encoded: Base-64 encoded string
     ///   - options: The options to use for the decoding. Default value is [].
@@ -254,6 +305,13 @@ extension AESEncryptedValue {
         rawValue.base64EncodedString(options: options)
     }
     
+    /// Decrypt
+    /// - Parameters:
+    ///   - key: AES key
+    ///   - iv: AES initialization vector
+    ///   - blockMode: Block mode, `.cbc` for default
+    ///   - padding: Padding, `.pkcs7Padding` for default
+    /// - Returns: Raw AES value
     func decrypt(
         key: AESKey,
         iv: AESIV,
@@ -264,6 +322,7 @@ extension AESEncryptedValue {
     }
 }
 
+/// Error that may occur in AES cipher
 enum AESError: Error {
     case unmatchedLength(Int), unexpectedHexString(String)
 }
