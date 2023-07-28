@@ -21,6 +21,8 @@
 		C1C0D2B92A6F99320083EC04 /* vChatUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C0D2B82A6F99320083EC04 /* vChatUITestsLaunchTests.swift */; };
 		C1C0D2C92A702BB20083EC04 /* VCDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C0D2C82A702BB20083EC04 /* VCDevice.swift */; };
 		C1C0D2CB2A7033FC0083EC04 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = C1C0D2CA2A7033FC0083EC04 /* Localizable.xcstrings */; };
+		C1E9CC9C2A731D28001D2053 /* WrappedAES.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1E9CC9B2A731D28001D2053 /* WrappedAES.swift */; };
+		C1E9CC9E2A73226F001D2053 /* Digest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1E9CC9D2A73226F001D2053 /* Digest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +59,8 @@
 		C1C0D2B82A6F99320083EC04 /* vChatUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = vChatUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		C1C0D2C82A702BB20083EC04 /* VCDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VCDevice.swift; sourceTree = "<group>"; };
 		C1C0D2CA2A7033FC0083EC04 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
+		C1E9CC9B2A731D28001D2053 /* WrappedAES.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WrappedAES.swift; sourceTree = "<group>"; };
+		C1E9CC9D2A73226F001D2053 /* Digest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Digest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +101,8 @@
 			isa = PBXGroup;
 			children = (
 				C1795D842A72C974009CC38F /* WrappedRSA.swift */,
+				C1E9CC9B2A731D28001D2053 /* WrappedAES.swift */,
+				C1E9CC9D2A73226F001D2053 /* Digest.swift */,
 			);
 			path = Encryption;
 			sourceTree = "<group>";
@@ -315,6 +321,8 @@
 				C1795D852A72C974009CC38F /* WrappedRSA.swift in Sources */,
 				C1795D7A2A72914F009CC38F /* VCUser.swift in Sources */,
 				C1795D822A72B2F3009CC38F /* EntryView.swift in Sources */,
+				C1E9CC9C2A731D28001D2053 /* WrappedAES.swift in Sources */,
+				C1E9CC9E2A73226F001D2053 /* Digest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
