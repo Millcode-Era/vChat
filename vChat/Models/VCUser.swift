@@ -15,10 +15,8 @@ class VCUser {
     var username: String
     var password: String
     
-    // TODO: Bind to VCFriend
-    // The binding should have a cascade relationship to VCFriend
     /// User's friends
-    var friendList: [String]
+    @Relationship(.cascade) var friendList: [VCFriend]
     
     /// Create a new `User` which stored locally.
     /// - Parameters:
@@ -26,10 +24,10 @@ class VCUser {
     ///   - username: User's name that defined by it own
     ///   - password: SHA256 digested password
     ///   - friendList: Friends that this user have
-    init(uid: String, username: String, password: String, friendList: [String]) {
+    init(uid: String, username: String, password: String) {
         self.uid = uid
         self.username = username
         self.password = password
-        self.friendList = friendList
+        self.friendList = []
     }
 }
