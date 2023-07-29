@@ -1,7 +1,13 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-    "Debug Info" : {
+    "Chat" : {
+
+    },
+    "Contact" : {
+
+    },
+    "Contacts" : {
 
     },
     "Error Area: %@" : {
@@ -16,13 +22,19 @@
     "Exit" : {
 
     },
-    "Key pair" : {
+    "iPad" : {
+
+    },
+    "Me" : {
 
     },
     "Relax, it's not your fault." : {
 
     },
     "Some error occurd!" : {
+
+    },
+    "Unavailable" : {
 
     }
   },
