@@ -11,14 +11,14 @@ import SwiftData
 @Model
 class VCChatHistory {
     var content: Data
-    var type: ChatHistoryType
+    var type: String
     @Relationship(.nullify) var withFriend: VCFriend?
     var isReceive: Bool
     var date: Date
     
     init(content: Data, type: ChatHistoryType, withFriend: VCFriend? = nil, isReceive: Bool, date: Date = Date.now) {
         self.content = content
-        self.type = type
+        self.type = type.rawValue
         self.withFriend = withFriend
         self.isReceive = isReceive
         self.date = date
@@ -26,7 +26,7 @@ class VCChatHistory {
     
     init(text: String, type: ChatHistoryType, withFriend: VCFriend? = nil, isReceive: Bool, date: Date = Date.now) {
         self.content = text.data(using: .utf8)!
-        self.type = type
+        self.type = type.rawValue
         self.withFriend = withFriend
         self.isReceive = isReceive
         self.date = date
