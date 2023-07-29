@@ -34,5 +34,5 @@ struct EntryView: View {
 
 #Preview {
     EntryView()
-        .modelContainer(for: VCDevice.self, inMemory: true)
+        .modelContainer(for: [VCDevice.self, VCUser.self, VCFriend.self], inMemory: true)
 }

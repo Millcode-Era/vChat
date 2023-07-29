@@ -14,11 +14,12 @@ class VCFriend {
     var username: String
     var nickname: String?
     
-    var keys: [[UUID: String]] = []
+    var keys: [UUID: String] = [:]
     
     init(uid: String, username: String, nickname: String? = nil) {
         self.uid = uid
         self.username = username
         self.nickname = nickname
+        self.keys = [:]
     }
 }

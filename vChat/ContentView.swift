@@ -33,6 +33,6 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
-        .modelContainer(for: [VCDevice.self, VCUser.self])
+        .modelContainer(for: [VCDevice.self, VCUser.self, VCFriend.self], inMemory: true)
         .environment(ErrorViewController())
 }
