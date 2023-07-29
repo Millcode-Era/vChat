@@ -22,7 +22,7 @@ struct vChatApp: App {
                     }
                 }
         }
-        .modelContainer(for: [VCDevice.self, VCUser.self])
+        .modelContainer(for: [VCDevice.self, VCUser.self, VCFriend.self, VCChatHistory.self])
     }
 }
 

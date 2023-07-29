@@ -16,6 +16,8 @@ class VCFriend {
     
     var keys: [[UUID: String]] = []
     
+    @Relationship(.cascade) var chatHistories: [VCChatHistory] = []
+    
     init(uid: String, username: String, nickname: String? = nil) {
         self.uid = uid
         self.username = username
