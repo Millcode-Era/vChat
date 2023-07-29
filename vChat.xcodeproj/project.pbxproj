@@ -25,6 +25,8 @@
 		C1E9CC9E2A73226F001D2053 /* Digest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1E9CC9D2A73226F001D2053 /* Digest.swift */; };
 		C1E9CCA02A73A53D001D2053 /* VCFriend.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1E9CC9F2A73A53D001D2053 /* VCFriend.swift */; };
 		C1F765F02A750E34004C4100 /* VCChatHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F765EF2A750E34004C4100 /* VCChatHistory.swift */; };
+		C1F765E72A74F4B5004C4100 /* iPhoneMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F765E62A74F4B5004C4100 /* iPhoneMainView.swift */; };
+		C1F765EC2A74F8E0004C4100 /* iPhoneChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F765EB2A74F8E0004C4100 /* iPhoneChatView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +67,8 @@
 		C1E9CC9D2A73226F001D2053 /* Digest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Digest.swift; sourceTree = "<group>"; };
 		C1E9CC9F2A73A53D001D2053 /* VCFriend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VCFriend.swift; sourceTree = "<group>"; };
 		C1F765EF2A750E34004C4100 /* VCChatHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VCChatHistory.swift; sourceTree = "<group>"; };
+		C1F765E62A74F4B5004C4100 /* iPhoneMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iPhoneMainView.swift; sourceTree = "<group>"; };
+		C1F765EB2A74F8E0004C4100 /* iPhoneChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iPhoneChatView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,6 +143,7 @@
 				C1C0D2992A6F992F0083EC04 /* vChatApp.swift */,
 				C1C0D29B2A6F992F0083EC04 /* ContentView.swift */,
 				C1795D812A72B2F3009CC38F /* EntryView.swift */,
+				C1F765E42A74F451004C4100 /* iPhone */,
 				C1795D7E2A72A700009CC38F /* ErrorView */,
 				C1C0D2C72A702B950083EC04 /* Models */,
 				C1C0D29D2A6F99320083EC04 /* Assets.xcassets */,
@@ -181,6 +186,23 @@
 				C1F765EF2A750E34004C4100 /* VCChatHistory.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		C1F765E42A74F451004C4100 /* iPhone */ = {
+			isa = PBXGroup;
+			children = (
+				C1F765E62A74F4B5004C4100 /* iPhoneMainView.swift */,
+				C1F765E82A74F86F004C4100 /* Chat */,
+			);
+			path = iPhone;
+			sourceTree = "<group>";
+		};
+		C1F765E82A74F86F004C4100 /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+				C1F765EB2A74F8E0004C4100 /* iPhoneChatView.swift */,
+			);
+			path = Chat;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -321,10 +343,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				C1795D802A72A716009CC38F /* ErrorView.swift in Sources */,
+				C1F765EC2A74F8E0004C4100 /* iPhoneChatView.swift in Sources */,
 				C1C0D29C2A6F992F0083EC04 /* ContentView.swift in Sources */,
 				C1C0D2C92A702BB20083EC04 /* VCDevice.swift in Sources */,
 				C1C0D29A2A6F992F0083EC04 /* vChatApp.swift in Sources */,
 				C1795D852A72C974009CC38F /* WrappedRSA.swift in Sources */,
+				C1F765E72A74F4B5004C4100 /* iPhoneMainView.swift in Sources */,
 				C1795D7A2A72914F009CC38F /* VCUser.swift in Sources */,
 				C1795D822A72B2F3009CC38F /* EntryView.swift in Sources */,
 				C1E9CC9C2A731D28001D2053 /* WrappedAES.swift in Sources */,
