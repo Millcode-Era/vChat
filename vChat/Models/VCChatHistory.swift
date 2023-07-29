@@ -24,9 +24,9 @@ class VCChatHistory {
         self.date = date
     }
     
-    init(text: String, type: ChatHistoryType, withFriend: VCFriend? = nil, isReceive: Bool, date: Date = Date.now) {
+    init(text: String, withFriend: VCFriend? = nil, isReceive: Bool, date: Date = Date.now) {
         self.content = text.data(using: .utf8)!
-        self.type = type.rawValue
+        self.type = ChatHistoryType.text.rawValue
         self.withFriend = withFriend
         self.isReceive = isReceive
         self.date = date
